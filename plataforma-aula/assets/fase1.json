@@ -1,0 +1,24 @@
+{
+  "monstros": [
+    {
+      "x": 100,
+      "y": 470,
+      "vx": 0.9,
+      "vy": 0,
+      "largura": 60,
+      "altura": 60,
+      "tipo": "slime"
+    },
+    {
+      "x": 1210,
+      "y": 420,
+      "vx": 0.9,
+      "vy": 0.5,
+      "largura": 60,
+      "altura": 60,
+      "tipo": "ghost"
+    }
+  ],
+  "plataformas": [],
+  "itens": []
+}
