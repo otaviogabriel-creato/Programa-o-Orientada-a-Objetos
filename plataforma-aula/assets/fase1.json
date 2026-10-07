@@ -19,6 +19,78 @@
       "tipo": "ghost"
     }
   ],
-  "plataformas": [],
-  "itens": []
+
+  "plataformas": [
+    {
+      "x": 0,
+      "y": 530,
+      "largura": 40,
+      "altura": 40,
+      "n": 15,
+      "tipo": "terra"
+    },
+    {
+      "x": 500,
+      "y": 390,
+      "largura": 40,
+      "altura": 40,
+      "n": 5,
+      "tipo": "pedra"
+    },
+    {
+      "x": 360,
+      "y": 260,
+      "largura": 40,
+      "altura": 40,
+      "n": 5,
+      "tipo": "pedra"
+    },
+    {
+      "x": 930,
+      "y": 530,
+      "largura": 40,
+      "altura": 40,
+      "n": 5,
+      "tipo": "terra"
+    },
+    {
+      "x": 1210,
+      "y": 490,
+      "largura": 40,
+      "altura": 40,
+      "n": 10,
+      "tipo": "madeira"
+    }
+  ],
+
+  "itens": [
+    {
+      "x": 845,
+      "y": 350,
+      "largura": 40,
+      "altura": 40,
+      "tipo": "moeda"
+    },
+    {
+      "x": 100,
+      "y": 460,
+      "largura": 40,
+      "altura": 40,
+      "tipo": "moeda"
+    },
+    {
+      "x": 150,
+      "y": 460,
+      "largura": 40,
+      "altura": 40,
+      "tipo": "moeda"
+    },
+    {
+      "x": 200,
+      "y": 460,
+      "largura": 40,
+      "altura": 40,
+      "tipo": "moeda"
+    }
+  ]
 }

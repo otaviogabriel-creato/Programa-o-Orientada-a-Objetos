@@ -30,7 +30,9 @@ async function setup() {
   imgCenario = await loadImage("assets/cenario2.png");
   mapeamentoMonstros = await loadJSON("assets/monsters.json");
   fase = await loadJSON("assets/fase1.json");
+
   imgCenario.resize(800, 600);
+
   x = width / 2;
   y = 10;
   vx = 0;
@@ -53,6 +55,7 @@ async function setup() {
       frameWidth: 46,
       frameHeight: 68,
     },
+
     jump: {
       frames: [
         { x: 36, y: 43 },
@@ -67,6 +70,7 @@ async function setup() {
       frameWidth: 59,
       frameHeight: 85,
     },
+
     idle: {
       frames: [
         { x: 38, y: 58 },
@@ -96,7 +100,13 @@ async function setup() {
     ghost: new Animacao(mapeamentoMonstros.ghost, imgPersonagem.ghost),
   };
 
-  personagem = new Personagem(x, y, 46 * 1.5, 68 * 1.5, animacoes);
+  personagem = new Personagem(
+    x,
+    y,
+    46 * 1.5,
+    68 * 1.5,
+    animacoes
+  );
 
   imgPlataformas = {
     madeira: await loadImage("assets/plataforma-madeira.png"),
@@ -104,29 +114,45 @@ async function setup() {
     terra: await loadImage("assets/plataforma-terra.png"),
   };
 
-  plataformas.push(
-    new Plataforma(0, height - 70, 40, 40, 15, imgPlataformas.terra),
-    new Plataforma(500, height - 210, 40, 40, 5, imgPlataformas.pedra),
-    new Plataforma(360, height - 340, 40, 40, 5, imgPlataformas.pedra),
-    new Plataforma(width + 130, height - 70, 40, 40, 5, imgPlataformas.terra),
-    new Plataforma(
-      width + 410,
-      height - 110,
-      40,
-      40,
-      10,
-      imgPlataformas.madeira,
-    ),
-  );
+  // Carrega as plataformas a partir do arquivo JSON
+  for (let p of fase.plataformas) {
+    plataformas.push(
+      new Plataforma(
+        p.x,
+        p.y,
+        p.largura,
+        p.altura,
+        p.n,
+        imgPlataformas[p.tipo]
+      )
+    );
+  }
 
-  itens.push(new Item(width + 45, height - 250, 40, 40, imgMoeda));
-  itens.push(new Item(100, height - 140, 40, 40, imgMoeda));
-  itens.push(new Item(150, height - 140, 40, 40, imgMoeda));
-  itens.push(new Item(200, height - 140, 40, 40, imgMoeda));
+  // Carrega os itens a partir do arquivo JSON
+  for (let i of fase.itens) {
+    itens.push(
+      new Item(
+        i.x,
+        i.y,
+        i.largura,
+        i.altura,
+        imgMoeda
+      )
+    );
+  }
 
+  // Carrega os monstros a partir do arquivo JSON
   for (let m of fase.monstros) {
     monstros.push(
-      new Monstro(m.x, m.y, m.vx, m.vy, m.largura, m.altura, animacoes[m.tipo]),
+      new Monstro(
+        m.x,
+        m.y,
+        m.vx,
+        m.vy,
+        m.largura,
+        m.altura,
+        animacoes[m.tipo]
+      )
     );
   }
 }
@@ -142,6 +168,7 @@ function draw() {
 function desenharGameOver() {
   imgCenario.filter(GRAY);
   image(imgCenario, 0, 0);
+
   fill("red");
   textSize(90);
   textAlign(CENTER, CENTER);
@@ -152,7 +179,9 @@ function desenharPontuacao() {
   fill("#ffffff83");
   noStroke();
   rect(40, 40, 150, 60);
+
   image(imgMoeda, 50, 50);
+
   fill("black");
   textSize(30);
   text("x " + pontos, 95, 80);
@@ -186,6 +215,7 @@ function desenharJogo() {
     moverDireita(plataformas);
     moverDireita(itens);
     moverDireita(monstros);
+
   } else if (keyIsDown(RIGHT_ARROW)) {
     personagem.olharParaDireita();
     personagem.correr();
@@ -193,11 +223,12 @@ function desenharJogo() {
     moverEsquerda(plataformas);
     moverEsquerda(itens);
     moverEsquerda(monstros);
+
   } else {
     personagem.parar();
   }
 
-  // todas as atualizações
+  // Todas as atualizações
   personagem.aplicarGravidade();
 
   if (personagem.y > height) {
@@ -214,13 +245,14 @@ function desenharJogo() {
   for (let plataforma of plataformas) {
     if (personagem.checarColisao(plataforma) == 1) {
       personagem.pisarNoChao(plataforma);
+
     } else if (personagem.checarColisao(plataforma) == 2) {
       personagem.baterCabeca(plataforma);
       plataforma.setCor("#FF0000");
     }
   }
 
-  // todos os dsenhos
+  // Todos os desenhos
   personagem.desenhar();
 
   // Desenha todas as plataformas
